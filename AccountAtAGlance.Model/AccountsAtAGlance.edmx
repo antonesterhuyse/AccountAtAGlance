@@ -1,0 +1,869 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AccountsAtAGlance.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="AccountsAtAGlanceModelStoreContainer">
+          <EntitySet Name="BrokerageAccounts" EntityType="AccountsAtAGlance.Model.Store.BrokerageAccounts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Customers" EntityType="AccountsAtAGlance.Model.Store.Customers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Exchanges" EntityType="AccountsAtAGlance.Model.Store.Exchanges" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MarketIndexes" EntityType="AccountsAtAGlance.Model.Store.MarketIndexes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="AccountsAtAGlance.Model.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OrderTypes" EntityType="AccountsAtAGlance.Model.Store.OrderTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Positions" EntityType="AccountsAtAGlance.Model.Store.Positions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Securities" EntityType="AccountsAtAGlance.Model.Store.Securities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Securities_MutualFund" EntityType="AccountsAtAGlance.Model.Store.Securities_MutualFund" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Securities_Stock" EntityType="AccountsAtAGlance.Model.Store.Securities_Stock" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WatchLists" EntityType="AccountsAtAGlance.Model.Store.WatchLists" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WatchListSecurity" EntityType="AccountsAtAGlance.Model.Store.WatchListSecurity" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AccountPositionBrokerageAccount" Association="AccountsAtAGlance.Model.Store.FK_AccountPositionBrokerageAccount">
+            <End Role="BrokerageAccounts" EntitySet="BrokerageAccounts" />
+            <End Role="Positions" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BrokerageAccountOrder" Association="AccountsAtAGlance.Model.Store.FK_BrokerageAccountOrder">
+            <End Role="BrokerageAccounts" EntitySet="BrokerageAccounts" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BrokerageAccountWatchList" Association="AccountsAtAGlance.Model.Store.FK_BrokerageAccountWatchList">
+            <End Role="WatchLists" EntitySet="WatchLists" />
+            <End Role="BrokerageAccounts" EntitySet="BrokerageAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerBrokerageAccount" Association="AccountsAtAGlance.Model.Store.FK_CustomerBrokerageAccount">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="BrokerageAccounts" EntitySet="BrokerageAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExchangeStock" Association="AccountsAtAGlance.Model.Store.FK_ExchangeStock">
+            <End Role="Exchanges" EntitySet="Exchanges" />
+            <End Role="Securities_Stock" EntitySet="Securities_Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MutualFund_inherits_Security" Association="AccountsAtAGlance.Model.Store.FK_MutualFund_inherits_Security">
+            <End Role="Securities" EntitySet="Securities" />
+            <End Role="Securities_MutualFund" EntitySet="Securities_MutualFund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderSecurity" Association="AccountsAtAGlance.Model.Store.FK_OrderSecurity">
+            <End Role="Securities" EntitySet="Securities" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderTypeOrder" Association="AccountsAtAGlance.Model.Store.FK_OrderTypeOrder">
+            <End Role="OrderTypes" EntitySet="OrderTypes" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityAccountPosition" Association="AccountsAtAGlance.Model.Store.FK_SecurityAccountPosition">
+            <End Role="Securities" EntitySet="Securities" />
+            <End Role="Positions" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_inherits_Security" Association="AccountsAtAGlance.Model.Store.FK_Stock_inherits_Security">
+            <End Role="Securities" EntitySet="Securities" />
+            <End Role="Securities_Stock" EntitySet="Securities_Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchListSecurity_Security" Association="AccountsAtAGlance.Model.Store.FK_WatchListSecurity_Security">
+            <End Role="Securities" EntitySet="Securities" />
+            <End Role="WatchListSecurity" EntitySet="WatchListSecurity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchListSecurity_WatchList" Association="AccountsAtAGlance.Model.Store.FK_WatchListSecurity_WatchList">
+            <End Role="WatchLists" EntitySet="WatchLists" />
+            <End Role="WatchListSecurity" EntitySet="WatchListSecurity" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BrokerageAccounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="nvarchar" Nullable="false" MaxLength="15" />
+          <Property Name="AccountTitle" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Total" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="MarginBalance" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="IsRetirement" Type="bit" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CashTotal" Type="decimal" Nullable="false" />
+          <Property Name="PositionsTotal" Type="decimal" Nullable="false" />
+          <Property Name="WatchList_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="2" />
+          <Property Name="Zip" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Exchanges">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="MarketIndexes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Last" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Change" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="PercentChange" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="DayHigh" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="DayLow" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="YearHigh" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="YearLow" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Open" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Volume" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="250" />
+          <Property Name="Symbol" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="RetrievalDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NumberOfShares" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Price" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="OrderTypeId" Type="int" Nullable="false" />
+          <Property Name="SecurityId" Type="int" Nullable="false" />
+          <Property Name="BrokerageAccountOrder_Order_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Positions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SecurityId" Type="int" Nullable="false" />
+          <Property Name="Shares" Type="decimal" Nullable="false" />
+          <Property Name="Total" Type="decimal" Nullable="false" />
+          <Property Name="BrokerageAccountId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Securities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Change" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="PercentChange" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Last" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Shares" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Symbol" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="RetrievalDateTime" Type="datetime" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Securities_MutualFund">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="MorningStarRating" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Securities_Stock">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DayHigh" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="DayLow" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Dividend" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Open" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="Volume" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="YearHigh" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="YearLow" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="AverageVolume" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="MarketCap" Type="decimal" Nullable="false" Scale="2" />
+          <Property Name="ExchangeId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WatchLists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WatchListSecurity">
+          <Key>
+            <PropertyRef Name="WatchListSecurity_Security_Id" />
+            <PropertyRef Name="Securities_Id" />
+          </Key>
+          <Property Name="WatchListSecurity_Security_Id" Type="int" Nullable="false" />
+          <Property Name="Securities_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AccountPositionBrokerageAccount">
+          <End Role="BrokerageAccounts" Type="AccountsAtAGlance.Model.Store.BrokerageAccounts" Multiplicity="1" />
+          <End Role="Positions" Type="AccountsAtAGlance.Model.Store.Positions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrokerageAccounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Positions">
+              <PropertyRef Name="BrokerageAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BrokerageAccountOrder">
+          <End Role="BrokerageAccounts" Type="AccountsAtAGlance.Model.Store.BrokerageAccounts" Multiplicity="1" />
+          <End Role="Orders" Type="AccountsAtAGlance.Model.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BrokerageAccounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BrokerageAccountOrder_Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BrokerageAccountWatchList">
+          <End Role="WatchLists" Type="AccountsAtAGlance.Model.Store.WatchLists" Multiplicity="1" />
+          <End Role="BrokerageAccounts" Type="AccountsAtAGlance.Model.Store.BrokerageAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WatchLists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrokerageAccounts">
+              <PropertyRef Name="WatchList_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerBrokerageAccount">
+          <End Role="Customers" Type="AccountsAtAGlance.Model.Store.Customers" Multiplicity="1" />
+          <End Role="BrokerageAccounts" Type="AccountsAtAGlance.Model.Store.BrokerageAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrokerageAccounts">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExchangeStock">
+          <End Role="Exchanges" Type="AccountsAtAGlance.Model.Store.Exchanges" Multiplicity="1" />
+          <End Role="Securities_Stock" Type="AccountsAtAGlance.Model.Store.Securities_Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exchanges">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Securities_Stock">
+              <PropertyRef Name="ExchangeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MutualFund_inherits_Security">
+          <End Role="Securities" Type="AccountsAtAGlance.Model.Store.Securities" Multiplicity="1" />
+          <End Role="Securities_MutualFund" Type="AccountsAtAGlance.Model.Store.Securities_MutualFund" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Securities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Securities_MutualFund">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderSecurity">
+          <End Role="Securities" Type="AccountsAtAGlance.Model.Store.Securities" Multiplicity="1" />
+          <End Role="Orders" Type="AccountsAtAGlance.Model.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Securities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="SecurityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderTypeOrder">
+          <End Role="OrderTypes" Type="AccountsAtAGlance.Model.Store.OrderTypes" Multiplicity="1" />
+          <End Role="Orders" Type="AccountsAtAGlance.Model.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="OrderTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityAccountPosition">
+          <End Role="Securities" Type="AccountsAtAGlance.Model.Store.Securities" Multiplicity="1" />
+          <End Role="Positions" Type="AccountsAtAGlance.Model.Store.Positions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Securities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Positions">
+              <PropertyRef Name="SecurityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_inherits_Security">
+          <End Role="Securities" Type="AccountsAtAGlance.Model.Store.Securities" Multiplicity="1" />
+          <End Role="Securities_Stock" Type="AccountsAtAGlance.Model.Store.Securities_Stock" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Securities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Securities_Stock">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchListSecurity_Security">
+          <End Role="Securities" Type="AccountsAtAGlance.Model.Store.Securities" Multiplicity="1" />
+          <End Role="WatchListSecurity" Type="AccountsAtAGlance.Model.Store.WatchListSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Securities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WatchListSecurity">
+              <PropertyRef Name="Securities_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchListSecurity_WatchList">
+          <End Role="WatchLists" Type="AccountsAtAGlance.Model.Store.WatchLists" Multiplicity="1" />
+          <End Role="WatchListSecurity" Type="AccountsAtAGlance.Model.Store.WatchListSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WatchLists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WatchListSecurity">
+              <PropertyRef Name="WatchListSecurity_Security_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteAccounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DeleteSecuritiesAndExchanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="AccountsAtAGlance.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="AccountsAtAGlanceContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Orders" EntityType="AccountsAtAGlance.Model.Order" />
+          <AssociationSet Name="BrokerageAccountOrder" Association="AccountsAtAGlance.Model.BrokerageAccountOrder">
+            <End Role="BrokerageAccount" EntitySet="BrokerageAccounts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Securities" EntityType="AccountsAtAGlance.Model.Security" />
+          <EntitySet Name="WatchLists" EntityType="AccountsAtAGlance.Model.WatchList" />
+          <EntitySet Name="OrderTypes" EntityType="AccountsAtAGlance.Model.OrderType" />
+          <EntitySet Name="Exchanges" EntityType="AccountsAtAGlance.Model.Exchange" />
+          <EntitySet Name="BrokerageAccounts" EntityType="AccountsAtAGlance.Model.BrokerageAccount" />
+          <EntitySet Name="MarketIndexes" EntityType="AccountsAtAGlance.Model.MarketIndex" />
+          <AssociationSet Name="ExchangeStock" Association="AccountsAtAGlance.Model.ExchangeStock">
+            <End Role="Exchange" EntitySet="Exchanges" />
+            <End Role="Stock" EntitySet="Securities" />
+          </AssociationSet>
+          <AssociationSet Name="OrderTypeOrder" Association="AccountsAtAGlance.Model.OrderTypeOrder">
+            <End Role="OrderType" EntitySet="OrderTypes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="BrokerageAccountWatchList" Association="AccountsAtAGlance.Model.BrokerageAccountWatchList">
+            <End Role="BrokerageAccount" EntitySet="BrokerageAccounts" />
+            <End Role="WatchList" EntitySet="WatchLists" />
+          </AssociationSet>
+          <AssociationSet Name="WatchListSecurity" Association="AccountsAtAGlance.Model.WatchListSecurity">
+            <End Role="WatchList" EntitySet="WatchLists" />
+            <End Role="Security" EntitySet="Securities" />
+          </AssociationSet>
+          <AssociationSet Name="OrderSecurity" Association="AccountsAtAGlance.Model.OrderSecurity">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Security" EntitySet="Securities" />
+          </AssociationSet>
+          <EntitySet Name="Positions" EntityType="AccountsAtAGlance.Model.Position" />
+          <AssociationSet Name="SecurityAccountPosition" Association="AccountsAtAGlance.Model.SecurityAccountPosition">
+            <End Role="Security" EntitySet="Securities" />
+            <End Role="AccountPosition" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="AccountPositionBrokerageAccount" Association="AccountsAtAGlance.Model.AccountPositionBrokerageAccount">
+            <End Role="AccountPosition" EntitySet="Positions" />
+            <End Role="BrokerageAccount" EntitySet="BrokerageAccounts" />
+          </AssociationSet>
+          <EntitySet Name="Customers" EntityType="AccountsAtAGlance.Model.Customer" />
+          <AssociationSet Name="CustomerBrokerageAccount" Association="AccountsAtAGlance.Model.CustomerBrokerageAccount">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="BrokerageAccount" EntitySet="BrokerageAccounts" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteAccounts" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="DeleteSecuritiesAndExchanges" ReturnType="Collection(Int32)" />
+          </EntityContainer>
+        <EntityType Name="BrokerageAccount" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <NavigationProperty Name="Orders" Relationship="AccountsAtAGlance.Model.BrokerageAccountOrder" FromRole="BrokerageAccount" ToRole="Order" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AccountNumber" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="AccountTitle" Nullable="false" MaxLength="250" />
+          <Property Type="Decimal" Name="Total" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="MarginBalance" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Boolean" Name="IsRetirement" Nullable="false" />
+          <NavigationProperty Name="WatchList" Relationship="AccountsAtAGlance.Model.BrokerageAccountWatchList" FromRole="BrokerageAccount" ToRole="WatchList" />
+          <NavigationProperty Name="Positions" Relationship="AccountsAtAGlance.Model.AccountPositionBrokerageAccount" FromRole="BrokerageAccount" ToRole="AccountPosition" />
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="Decimal" Name="CashTotal" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PositionsTotal" Nullable="false" Precision="18" Scale="1" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="NumberOfShares" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="Price" Nullable="false"  Precision="18" Scale="2"/>
+          <NavigationProperty Name="OrderType" Relationship="AccountsAtAGlance.Model.OrderTypeOrder" FromRole="Order" ToRole="OrderType" />
+          <Property Type="Int32" Name="OrderTypeId" Nullable="false" />
+          <NavigationProperty Name="Security" Relationship="AccountsAtAGlance.Model.OrderSecurity" FromRole="Order" ToRole="Security" />
+          <Property Type="Int32" Name="SecurityId" Nullable="false" />
+        </EntityType>
+        <Association Name="BrokerageAccountOrder">
+          <End Type="AccountsAtAGlance.Model.BrokerageAccount" Role="BrokerageAccount" Multiplicity="1" />
+          <End Type="AccountsAtAGlance.Model.Order" Role="Order" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Security" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="Change" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="PercentChange" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Last" Nullable="false" Precision="18" Scale="2"  />
+          <Property Type="Decimal" Name="Shares" Nullable="false" DefaultValue="0.00" Precision="18" Scale="2" />
+          <Property Type="String" Name="Symbol" Nullable="false" MaxLength="5" />
+          <Property Type="DateTime" Name="RetrievalDateTime" Nullable="false" />
+          <Property Type="String" Name="Company" Nullable="false" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Stock" BaseType="AccountsAtAGlance.Model.Security" >
+          <Property Type="Decimal" Name="DayHigh" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="DayLow" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="Dividend" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="Open" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="Volume" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="YearHigh" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="YearLow" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="AverageVolume" Nullable="false"  Precision="18" Scale="2"/>
+          <Property Type="Decimal" Name="MarketCap" Nullable="false" Precision="18" Scale="2"/>
+          <NavigationProperty Name="Exchange" Relationship="AccountsAtAGlance.Model.ExchangeStock" FromRole="Stock" ToRole="Exchange" />
+          <Property Type="Int32" Name="ExchangeId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MutualFund" BaseType="AccountsAtAGlance.Model.Security" >
+          <Property Type="Int32" Name="MorningStarRating" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WatchList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Securities" Relationship="AccountsAtAGlance.Model.WatchListSecurity" FromRole="WatchList" ToRole="Security" />
+          <Property Type="String" Name="Title" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="10" />
+          <NavigationProperty Name="Orders" Relationship="AccountsAtAGlance.Model.OrderTypeOrder" FromRole="OrderType" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Exchange">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="MarketIndex">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Last" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="Change" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="PercentChange" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="DayHigh" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="DayLow" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="YearHigh" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="YearLow" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="Open" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="Volume" Nullable="false" Precision="18" Scale="2" Type="Decimal" />
+          <Property Name="Title" Nullable="false" MaxLength="250" Type="String" />
+          <Property Name="Symbol" Nullable="false" MaxLength="5" Type="String" />
+          <Property Type="DateTime" Name="RetrievalDateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="ExchangeStock">
+          <End Type="AccountsAtAGlance.Model.Exchange" Role="Exchange" Multiplicity="1" />
+          <End Type="AccountsAtAGlance.Model.Stock" Role="Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exchange">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="ExchangeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="OrderTypeOrder">
+          <End Type="AccountsAtAGlance.Model.OrderType" Role="OrderType" Multiplicity="1" />
+          <End Type="AccountsAtAGlance.Model.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="OrderTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BrokerageAccountWatchList">
+          <End Type="AccountsAtAGlance.Model.BrokerageAccount" Role="BrokerageAccount" Multiplicity="1" />
+          <End Type="AccountsAtAGlance.Model.WatchList" Role="WatchList" Multiplicity="1" />
+        </Association>
+        <Association Name="WatchListSecurity">
+          <End Type="AccountsAtAGlance.Model.WatchList" Role="WatchList" Multiplicity="*" />
+          <End Type="AccountsAtAGlance.Model.Security" Role="Security" Multiplicity="*" />
+        </Association>
+        <Association Name="OrderSecurity">
+          <End Type="AccountsAtAGlance.Model.Order" Role="Order" Multiplicity="*" />
+          <End Type="AccountsAtAGlance.Model.Security" Role="Security" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Security">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="SecurityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Security" Relationship="AccountsAtAGlance.Model.SecurityAccountPosition" FromRole="AccountPosition" ToRole="Security" />
+          <Property Type="Int32" Name="SecurityId" Nullable="false" />
+          <Property Type="Decimal" Name="Shares" Nullable="false" />
+          <Property Type="Decimal" Name="Total" Nullable="false" />
+          <Property Type="Int32" Name="BrokerageAccountId" Nullable="false" />
+        </EntityType>
+        <Association Name="SecurityAccountPosition">
+          <End Type="AccountsAtAGlance.Model.Security" Role="Security" Multiplicity="1" />
+          <End Type="AccountsAtAGlance.Model.Position" Role="AccountPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Security">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccountPosition">
+              <PropertyRef Name="SecurityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AccountPositionBrokerageAccount">
+          <End Type="AccountsAtAGlance.Model.Position" Role="AccountPosition" Multiplicity="*" />
+          <End Type="AccountsAtAGlance.Model.BrokerageAccount" Role="BrokerageAccount" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="BrokerageAccount">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccountPosition">
+              <PropertyRef Name="BrokerageAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="City" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="State" Nullable="false" MaxLength="2" />
+          <Property Type="Int32" Name="Zip" Nullable="false" />
+          <NavigationProperty Name="BrokerageAccounts" Relationship="AccountsAtAGlance.Model.CustomerBrokerageAccount" FromRole="Customer" ToRole="BrokerageAccount" />
+          <Property Type="String" Name="CustomerId" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <Association Name="CustomerBrokerageAccount">
+          <End Type="AccountsAtAGlance.Model.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="AccountsAtAGlance.Model.BrokerageAccount" Role="BrokerageAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BrokerageAccount">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AccountsAtAGlanceModelStoreContainer" CdmEntityContainer="AccountsAtAGlanceContainer">
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.Order)">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumberOfShares" ColumnName="NumberOfShares" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="OrderTypeId" ColumnName="OrderTypeId" />
+          <ScalarProperty Name="SecurityId" ColumnName="SecurityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Securities">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.Security)">
+        <MappingFragment StoreEntitySet="Securities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Change" ColumnName="Change" />
+          <ScalarProperty Name="PercentChange" ColumnName="PercentChange" />
+          <ScalarProperty Name="Last" ColumnName="Last" />
+          <ScalarProperty Name="Shares" ColumnName="Shares" />
+          <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+          <ScalarProperty Name="RetrievalDateTime" ColumnName="RetrievalDateTime" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.Stock)">
+        <MappingFragment StoreEntitySet="Securities_Stock">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DayHigh" ColumnName="DayHigh" />
+          <ScalarProperty Name="DayLow" ColumnName="DayLow" />
+          <ScalarProperty Name="Dividend" ColumnName="Dividend" />
+          <ScalarProperty Name="Open" ColumnName="Open" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+          <ScalarProperty Name="YearHigh" ColumnName="YearHigh" />
+          <ScalarProperty Name="YearLow" ColumnName="YearLow" />
+          <ScalarProperty Name="AverageVolume" ColumnName="AverageVolume" />
+          <ScalarProperty Name="MarketCap" ColumnName="MarketCap" />
+          <ScalarProperty Name="ExchangeId" ColumnName="ExchangeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.MutualFund)">
+        <MappingFragment StoreEntitySet="Securities_MutualFund">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MorningStarRating" ColumnName="MorningStarRating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WatchLists">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.WatchList)">
+        <MappingFragment StoreEntitySet="WatchLists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.OrderType)">
+        <MappingFragment StoreEntitySet="OrderTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exchanges">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.Exchange)">
+        <MappingFragment StoreEntitySet="Exchanges">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BrokerageAccounts">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.BrokerageAccount)">
+        <MappingFragment StoreEntitySet="BrokerageAccounts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+          <ScalarProperty Name="AccountTitle" ColumnName="AccountTitle" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="MarginBalance" ColumnName="MarginBalance" />
+          <ScalarProperty Name="IsRetirement" ColumnName="IsRetirement" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CashTotal" ColumnName="CashTotal" />
+          <ScalarProperty Name="PositionsTotal" ColumnName="PositionsTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MarketIndexes">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.MarketIndex)">
+        <MappingFragment StoreEntitySet="MarketIndexes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Last" ColumnName="Last" />
+          <ScalarProperty Name="Change" ColumnName="Change" />
+          <ScalarProperty Name="PercentChange" ColumnName="PercentChange" />
+          <ScalarProperty Name="DayHigh" ColumnName="DayHigh" />
+          <ScalarProperty Name="DayLow" ColumnName="DayLow" />
+          <ScalarProperty Name="YearHigh" ColumnName="YearHigh" />
+          <ScalarProperty Name="YearLow" ColumnName="YearLow" />
+          <ScalarProperty Name="Open" ColumnName="Open" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+          <ScalarProperty Name="RetrievalDateTime" ColumnName="RetrievalDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Positions">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.Position)">
+        <MappingFragment StoreEntitySet="Positions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SecurityId" ColumnName="SecurityId" />
+          <ScalarProperty Name="Shares" ColumnName="Shares" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="BrokerageAccountId" ColumnName="BrokerageAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="IsTypeOf(AccountsAtAGlance.Model.Customer)">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BrokerageAccountOrder" TypeName="AccountsAtAGlance.Model.BrokerageAccountOrder" StoreEntitySet="Orders">
+      <EndProperty Name="BrokerageAccount">
+        <ScalarProperty Name="Id" ColumnName="BrokerageAccountOrder_Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BrokerageAccountWatchList" TypeName="AccountsAtAGlance.Model.BrokerageAccountWatchList" StoreEntitySet="BrokerageAccounts">
+      <EndProperty Name="WatchList">
+        <ScalarProperty Name="Id" ColumnName="WatchList_Id" />
+      </EndProperty>
+      <EndProperty Name="BrokerageAccount">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WatchListSecurity" TypeName="AccountsAtAGlance.Model.WatchListSecurity" StoreEntitySet="WatchListSecurity">
+      <EndProperty Name="WatchList">
+        <ScalarProperty Name="Id" ColumnName="WatchListSecurity_Security_Id" />
+      </EndProperty>
+      <EndProperty Name="Security">
+        <ScalarProperty Name="Id" ColumnName="Securities_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteAccounts" FunctionName="AccountsAtAGlance.Model.Store.DeleteAccounts" />
+          <FunctionImportMapping FunctionImportName="DeleteSecuritiesAndExchanges" FunctionName="AccountsAtAGlance.Model.Store.DeleteSecuritiesAndExchanges" />
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="DatabaseGenerationWorkflow" Value="$(VSEFTools)\DBGen\TablePerTypeStrategy.xaml" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="AccountsAtAGlance" >
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.BrokerageAccount" Width="1.75" PointX="4" PointY="6.125" Height="3.3263964843749996" />
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.Order" Width="1.75" PointX="6.5" PointY="7.75" Height="2.3648893229166674" />
+        <AssociationConnector Association="AccountsAtAGlance.Model.BrokerageAccountOrder">
+          <ConnectorPoint PointX="5.75" PointY="8.6006982421875" />
+          <ConnectorPoint PointX="6.5" PointY="8.6006982421875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.Security" Width="1.75" PointX="10" PointY="3.625" Height="2.5571907552083326" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.Stock" Width="1.5" PointX="13.125" PointY="7.125" Height="2.9417936197916656" />
+        <InheritanceConnector EntityType="AccountsAtAGlance.Model.Stock" ManuallyRouted="false" >
+          <ConnectorPoint PointX="10.875" PointY="6.1821907552083326" />
+          <ConnectorPoint PointX="10.875" PointY="6.75" />
+          <ConnectorPoint PointX="13.875" PointY="6.75" />
+          <ConnectorPoint PointX="13.875" PointY="7.125" />
+        </InheritanceConnector>
+        <InheritanceConnector EntityType="AccountsAtAGlance.Model.Stock">
+          <ConnectorPoint PointX="2.5" PointY="3.7494921874999996" />
+          <ConnectorPoint PointX="2.5" PointY="4.125" />
+          <ConnectorPoint PointX="3.625" PointY="4.125" />
+          <ConnectorPoint PointX="3.625" PointY="4.5" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.MutualFund" Width="1.625" PointX="10.875" PointY="7.125" Height="1.2110807291666657" />
+        <InheritanceConnector EntityType="AccountsAtAGlance.Model.MutualFund" ManuallyRouted="false" >
+          <ConnectorPoint PointX="10.875" PointY="6.1821907552083326" />
+          <ConnectorPoint PointX="10.875" PointY="6.75" />
+          <ConnectorPoint PointX="11.6875" PointY="6.75" />
+          <ConnectorPoint PointX="11.6875" PointY="7.125" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.WatchList" Width="1.625" PointX="6.5" PointY="2.25" Height="1.59568359375" />
+        <InheritanceConnector EntityType="AccountsAtAGlance.Model.BrokerageAccount">
+          <ConnectorPoint PointX="7.625" PointY="2.7879850260416674" />
+          <ConnectorPoint PointX="7.625" PointY="3.625" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.OrderType" Width="1.5" PointX="6.5" PointY="10.875" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.Exchange" Width="1.5" PointX="13.125" PointY="11" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.MarketIndex" PointX="12.875" PointY="2.875" Width="1.5" Height="3.5186979166666656" />
+        <AssociationConnector Association="AccountsAtAGlance.Model.ExchangeStock">
+          <ConnectorPoint PointX="13.875" PointY="11" />
+          <ConnectorPoint PointX="13.875" PointY="10.259095052083332" />
+        </AssociationConnector>
+        <AssociationConnector Association="AccountsAtAGlance.Model.OrderTypeOrder">
+          <ConnectorPoint PointX="7.25" PointY="10.875" />
+          <ConnectorPoint PointX="7.25" PointY="10.114889322916667" />
+        </AssociationConnector>
+        <AssociationConnector Association="AccountsAtAGlance.Model.BrokerageAccountWatchList">
+          <ConnectorPoint PointX="5.184450078125" PointY="6.125" />
+          <ConnectorPoint PointX="5.184450078125" PointY="2.5312499999999996" />
+          <ConnectorPoint PointX="6.5" PointY="2.5312499999999996" />
+        </AssociationConnector>
+        <AssociationConnector Association="AccountsAtAGlance.Model.WatchListSecurity">
+          <ConnectorPoint PointX="8.125" PointY="2.9374995" />
+          <ConnectorPoint PointX="10.875" PointY="2.9374995" />
+          <ConnectorPoint PointX="10.875" PointY="3.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="AccountsAtAGlance.Model.OrderSecurity" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.25" PointY="9.2567350260416674" />
+          <ConnectorPoint PointX="10.40625" PointY="9.2567350260416674" />
+          <ConnectorPoint PointX="10.40625" PointY="6.1821907552083326" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.Position" Width="1.875" PointX="6.5" PointY="4.625" Height="2.1725878906249996" />
+        <AssociationConnector Association="AccountsAtAGlance.Model.SecurityAccountPosition">
+          <ConnectorPoint PointX="10" PointY="5.4035953776041659" />
+          <ConnectorPoint PointX="8.375" PointY="5.4035953776041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="AccountsAtAGlance.Model.AccountPositionBrokerageAccount">
+          <ConnectorPoint PointX="6.5" PointY="6.4612939453125" />
+          <ConnectorPoint PointX="5.75" PointY="6.4612939453125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="AccountsAtAGlance.Model.Customer" Width="1.625" PointX="2.5" PointY="2.875" Height="2.7494921874999996" />
+        <AssociationConnector Association="AccountsAtAGlance.Model.CustomerBrokerageAccount">
+          <ConnectorPoint PointX="3.3125" PointY="5.6244921875" />
+          <ConnectorPoint PointX="3.3125" PointY="5.75" />
+          <ConnectorPoint PointX="4.5609730390625" PointY="5.75" />
+          <ConnectorPoint PointX="4.5609730390625" PointY="6.125" />
+        </AssociationConnector>
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
